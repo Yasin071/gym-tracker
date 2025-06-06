@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Barbell Tracker</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header>
+    <h1>Barbell Tracker</h1>
+    <a href="#" class="home-btn" id="homeBtn">Home</a>
+  </header>
+
+  <div class="container">
+    <div class="total-weight" id="totalWeight">Total: 20 kg</div>
+
+    <div class="exercise-name" id="exerciseName">Squat</div>
+
+    <!-- Neue visuelle Barbell -->
+    <div class="barbell-container" id="barbellContainer">
+      <div class="bar"></div>
+      <div class="collar left"></div>
+      <div class="collar right"></div>
+      <div class="plates-container left" id="leftPlates"></div>
+      <div class="plates-container right" id="rightPlates"></div>
+    </div>
+
+  <div class="mobile-controls">
+    <input type="number" class="rep-input" id="repInput" placeholder="Reps" min="1" inputmode="numeric">
+
+    <div class="control-buttons">
+      <button class="control-btn save-btn" id="saveBtn">Save Set</button>
+      <button class="control-btn reset-btn" id="resetBtn">Reset Weight</button>
+      <button class="control-btn delete-btn" id="deleteBtn">Delete Last Set</button>
+    </div>
+    </div>
+  </div>
+  
+    <div class="rest-timer" id="restTimer">First set</div>
+
+    <div class="weight-selector-container">
+      <button class="weight-selector-btn" id="weightBtn">Add Weight</button>
+      <div class="weight-options" id="weightOptions">
+        <div class="weight-option" data-weight="5">5 kg</div>
+        <div class="weight-option" data-weight="10">10 kg</div>
+        <div class="weight-option" data-weight="15">15 kg</div>
+        <div class="weight-option" data-weight="20">20 kg</div>
+      </div>
+    </div>
+
+    <div class="sets-list" id="setsList">
+      <div class="no-sets">No sets yet</div>
+    </div>
+
+    <input
+      type="number"
+      class="rep-input"
+      id="repInput"
+      placeholder="Enter reps"
+      min="1"
+    />
+  </div>
+
+  <!-- Mülleimer -->
+  <div class="trash-area" id="trashArea">Trash</div>
+
+  <script src="script.js"></script>
+</body>
+</html>
