@@ -1,0 +1,455 @@
+/* --- Base Styles --- */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  background-color: #f5f5f5;
+  color: #333;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  touch-action: manipulation;
+}
+
+header {
+  background-color: #333;
+  color: white;
+  padding: 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.home-btn {
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.container {
+  padding: 20px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.total-weight {
+  font-size: 24px;
+  font-weight: bold;
+  text-align: center;
+  margin: 20px 0;
+  transition: color 0.3s;
+}
+
+.total-weight.highlight {
+  color: #4caf50;
+}
+
+.exercise-name {
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+.control-buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  gap: 10px;
+}
+
+.control-btn {
+  flex: 1;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: transform 0.1s, background-color 0.2s;
+  min-height: 44px; /* Added from mobile optimizations */
+}
+
+.control-btn:active {
+  transform: scale(0.95);
+}
+
+.save-btn {
+  background-color: #4caf50;
+  color: white;
+}
+
+.reset-btn {
+  background-color: #f44336;
+  color: white;
+}
+
+.delete-btn {
+  background-color: #ff9800;
+  color: white;
+}
+
+.rest-timer {
+  text-align: center;
+  margin: 15px 0;
+  font-size: 18px;
+}
+
+.weight-selector-container {
+  position: relative;
+  margin-bottom: 20px;
+  align-self: flex-end;
+}
+
+.weight-selector-btn {
+  padding: 15px 25px;
+  background-color: #333;
+  color: white;
+  border-radius: 30px;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+  user-select: none;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16);
+  border: none;
+  position: relative;
+  z-index: 1;
+  min-height: 44px; /* Added from mobile optimizations */
+}
+
+
+
+.weight-options.show {
+  display: flex;
+  animation: slideIn 0.3s ease-out;
+}
+
+
+
+.weight-option:active {
+  background-color: #ddd;
+}
+
+.sets-list {
+  flex: 1;
+  overflow-y: auto;
+  border-top: 1px solid #ddd;
+  padding-top: 15px;
+}
+
+.set-item {
+  background-color: white;
+  padding: 12px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.no-sets {
+  text-align: center;
+  color: #777;
+  margin-top: 20px;
+}
+
+.rep-input {
+  margin-top: 10px;
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+/* --- Barbell Visualization --- */
+.barbell-container {
+  position: relative;
+  height: 120px;
+  margin: 0 auto 30px auto;
+  max-width: 600px;
+  user-select: none;
+}
+
+.bar {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 400px;
+  height: 20px;
+  background: linear-gradient(90deg, #999, #666);
+  border-radius: 10px;
+  transform: translate(-50%, -50%);
+  box-shadow: inset 0 0 8px #555;
+  z-index: 0;
+}
+
+.collar {
+  position: absolute;
+  top: 50%;
+  width: 30px;
+  height: 40px;
+  background: #444;
+  border-radius: 6px;
+  box-shadow: 0 0 5px #222;
+  transform: translateY(-50%);
+  z-index: 1;
+}
+
+.collar.left {
+  left: calc(50% - 200px - 15px);
+}
+
+.collar.right {
+  left: calc(50% + 200px - 15px);
+}
+
+.plates-container {
+  position: absolute;
+  top: 50%;
+  display: flex;
+  gap: 10px;
+  transform: translateY(-50%);
+  z-index: 2;
+}
+
+.plates-container.left {
+  left: calc(50% - 200px - 15px);
+  flex-direction: row-reverse;
+  transform: translateX(-100%) translateY(-50%);
+}
+
+.plates-container.right {
+  left: calc(50% + 200px + 15px);
+  flex-direction: row;
+}
+
+.plate {
+  width: 40px;
+  height: 40px;
+  background-color: #d33;
+  border-radius: 50%;
+  border: 3px solid #a22;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-weight: bold;
+  cursor: grab;
+  user-select: none;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+  transition: transform 0.2s;
+}
+
+.plate:active {
+  cursor: grabbing;
+  transform: scale(1.2);
+  box-shadow: 0 5px 10px rgba(0,0,0,0.5);
+  z-index: 100;
+  position: relative;
+}
+
+/* Trash Area */
+.trash-area {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 100px;
+  height: 100px;
+  background-color: #ff4444;
+  border-radius: 20px;
+  box-shadow: 0 0 10px #ff0000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-weight: bold;
+  font-size: 16px;
+  user-select: none;
+  z-index: 1000;
+  transition: background-color 0.3s;
+}
+
+.trash-area.dragover {
+  background-color: #cc0000;
+  box-shadow: 0 0 20px #ff0000;
+}
+
+/* Animations */
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* --- Mobile Optimizations --- */
+@media (max-width: 768px) {
+    body {
+        font-size: 14px;
+    }
+
+    header {
+        padding: 10px;
+    }
+
+    .container {
+        padding: 10px;
+    }
+
+    .barbell-container {
+        height: 80px;
+        max-width: 100%;
+    }
+
+    .bar {
+        width: 80%;
+        height: 15px;
+    }
+
+    .plate {
+        width: 30px;
+        height: 30px;
+        font-size: 10px;
+    }
+
+    .collar {
+        width: 20px;
+        height: 30px;
+    }
+
+    .collar.left {
+        left: calc(10% - 10px);
+    }
+
+    .collar.right {
+        left: calc(90% - 10px);
+    }
+
+    .plates-container.left {
+        left: calc(10% - 40px);
+    }
+
+    .plates-container.right {
+        left: calc(90% + 10px);
+    }
+
+    .control-buttons {
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .control-btn {
+        padding: 8px;
+        font-size: 14px;
+    }
+
+    .weight-selector-btn {
+        padding: 12px 20px;
+        font-size: 16px;
+    }
+
+    .weight-options {
+        right: 0;
+        left: auto;
+        top: 100%;
+        width: 100%;
+        max-width: 100%;
+        flex-wrap: wrap;
+    }
+
+    .weight-option {
+        padding: 10px 15px;
+        margin: 5px;
+        flex: 1 0 30%;
+    }
+
+    .trash-area {
+        width: 80px;
+        height: 80px;
+        font-size: 14px;
+        bottom: 10px;
+        right: 10px;
+    }
+}
+
+/* Global touch improvements */
+button {
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+/* ===== Improved Weight Selector ===== */
+
+
+
+.weight-options.show {
+  display: flex;
+  animation: slideIn 0.3s ease-out;
+}
+
+.weight-options::-webkit-scrollbar {
+  height: 5px;
+}
+
+.weight-options::-webkit-scrollbar-thumb {
+  background-color: #333;
+  border-radius: 10px;
+}
+
+/* Weight Selector Container */
+.weight-options {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background-color: white;
+  border-radius: 10px;
+  padding: 10px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  display: none;
+  flex-direction: row;
+  max-width: 90vw; /* Maximum width relative to viewport */
+  width: max-content; /* Expand to fit content up to max-width */
+  overflow-x: auto;
+  white-space: nowrap;
+  z-index: 10;
+  gap: 8px; /* Space between weights */
+}
+
+/* Weight Options */
+.weight-option {
+  padding: 12px 20px;
+  background-color: #f0f0f0;
+  border-radius: 8px;
+  text-align: center;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.2s;
+  flex-shrink: 0; /* Prevent shrinking */
+  user-select: none;
+  min-width: 60px; /* Minimum width for each weight */
+}
+
+/* Mobile Scaling */
+@media (max-width: 768px) {
+  .weight-options {
+    right: 50%;
+    transform: translateX(50%); /* Center on mobile */
+    width: 95vw;
+    padding: 8px;
+  }
+  
+  .weight-option {
+    padding: 10px 15px;
+    font-size: 14px;
+    min-width: 50px;
+  }
+}
